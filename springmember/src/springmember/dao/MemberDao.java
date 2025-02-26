@@ -10,6 +10,6 @@ public interface MemberDao {
 	public abstract Member getMember(String mid);
 	public abstract int insertMember(Member member);
 	public abstract int updateMember(Member member);
-	public abstract int deleteMember(Member member);
+	public abstract int deleteMember(String mid);
 
 }

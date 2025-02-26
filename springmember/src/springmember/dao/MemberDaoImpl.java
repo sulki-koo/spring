@@ -30,6 +30,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	@Deprecated
 	public Member getMember(String mid) {
 		String sql = " select * from springmember where mid=? ";
 		return jdbcTemplate.queryForObject(sql, new Object[] {mid}, new RowMapper<Member>(){
@@ -56,9 +57,9 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int deleteMember(Member member) {
+	public int deleteMember(String mid) {
 		String sql = " delete springmember where mid=? ";
-		int result = this.jdbcTemplate.update(sql.toString(), member.getMid());
+		int result = this.jdbcTemplate.update(sql.toString(), mid);
 		return result;
 	}
 

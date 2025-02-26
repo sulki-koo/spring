@@ -30,7 +30,7 @@ public class MemberControlller {
 		return memberService.updateMember(member);
 	}
 	
-	public int deleteMember(Member member) {
-		return memberService.deleteMember(member);
+	public int deleteMember(String mid) {
+		return memberService.deleteMember(mid);
 	}
 }

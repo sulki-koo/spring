@@ -56,8 +56,7 @@ public class MemberTest {
 	
 	@Test
 	public void testDeleteMember() {
-		Member member = new Member("PARK2", null, null, null);
-		int result = memberController.deleteMember(member);
+		int result = memberController.deleteMember("PARK2");
 		assertNotEquals(0, result);
 		if(result > 0) {
 			System.out.println("삭제완료");
