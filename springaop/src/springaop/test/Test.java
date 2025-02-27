@@ -13,7 +13,6 @@ public class Test {
 		ApplicationContext context = new GenericXmlApplicationContext("/springaop/conf/applicationContext.xml");
 		MemberService memberService = (MemberService) context.getBean("memberService");
 		List<String> memberList = memberService.getMemberList();
-
 	}
 
 }
