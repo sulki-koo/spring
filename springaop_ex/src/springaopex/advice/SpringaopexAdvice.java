@@ -31,7 +31,7 @@ public class SpringaopexAdvice {
 
 	@Around("execution(public * springaopex.service.*Impl.updateSpringaopex(..))")
 	public Object updateAround(ProceedingJoinPoint pjp) throws Throwable {
-		try {00
+		try {
 			Springaopex obj = (Springaopex) pjp.getArgs()[0];
 			Springaopex oldObj = springaopexService.getSpringaopex(obj.getSid());
 			String sql = " insert into log values(seq_log.nextval, ?, ?, ?, 'UPDATE', sysdate) ";
