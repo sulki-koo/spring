@@ -21,30 +21,30 @@ public class SpringaopexTest {
 	@Autowired
 	private SpringaopexService springaopexService;
 
-//	@Test
-	@Ignore
+	@Test
+//	@Ignore
 	public void testSelect() {
 		List<Springaopex> springaopexsList = springaopexService.selectSpringaopex();
 		assertNotNull(springaopexsList);
 		System.out.println(springaopexsList);
 	}
-	
-//	@Test
-	@Ignore
+
+	@Test
+//	@Ignore
 	public void testInsert() {
 		Springaopex springaopex = new Springaopex(0, "5678");
 		int result = springaopexService.insertSpringaopex(springaopex);
-		if(result>0) {
+		if (result > 0) {
 			System.out.println("등록완료");
 		}
 	}
-	
+
 //	@Test
 	@Ignore
 	public void testUpdate() {
 		Springaopex springaopex = new Springaopex(3, "new1234");
 		int result = springaopexService.updateSpringaopex(springaopex);
-		if(result>0) {
+		if (result > 0) {
 			System.out.println("수정완료");
 		}
 	}
@@ -53,7 +53,7 @@ public class SpringaopexTest {
 	@Ignore
 	public void testDelete() {
 		int result = springaopexService.deleteSpringaopex(4);
-		if(result>0) {
+		if (result > 0) {
 			System.out.println("삭제완료");
 		}
 	}

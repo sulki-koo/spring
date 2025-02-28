@@ -24,16 +24,14 @@ public class SpringaopexAdvice {
 
 	@After("execution(public * springaopex.service.*Impl.insertSpringaopex(..))")
 	public void insertAfter(JoinPoint joinpoint) throws Throwable {
-		String seqSql = " select seq_springaopex.currval from dual ";
-		Integer seq = jdbcTemplate.queryForObject(seqSql, Integer.class);
 		Springaopex obj = (Springaopex) joinpoint.getArgs()[0];
-		String sql = " insert into log values(seq_log.nextval, ?, ?, null, 'INSERT',  sysdate) ";
-		jdbcTemplate.update(sql, seq, obj.getSpass());
+		String sql = " insert into log values(seq_log.nextval, seq_springaopex.currval, ?, null, 'INSERT',  sysdate) ";
+		jdbcTemplate.update(sql, obj.getSpass());
 	}
 
 	@Around("execution(public * springaopex.service.*Impl.updateSpringaopex(..))")
 	public Object updateAround(ProceedingJoinPoint pjp) throws Throwable {
-		try {
+		try {00
 			Springaopex obj = (Springaopex) pjp.getArgs()[0];
 			Springaopex oldObj = springaopexService.getSpringaopex(obj.getSid());
 			String sql = " insert into log values(seq_log.nextval, ?, ?, ?, 'UPDATE', sysdate) ";
@@ -45,11 +43,10 @@ public class SpringaopexAdvice {
 
 	@Before("execution(public * springaopex.service.*Impl.deleteSpringaopex(..))")
 	public void deleteAround(JoinPoint joinPoint) throws Throwable {
-			Object obj = joinPoint.getArgs()[0];
-			int sid = (Integer) obj;
-			Springaopex oldObj = springaopexService.getSpringaopex(sid);
-			String sql = " insert into log values(seq_log.nextval, ?, ?, null, 'DELETE', sysdate) ";
-			jdbcTemplate.update(sql, sid, oldObj.getSpass());
+		int sid = (Integer) joinPoint.getArgs()[0];
+		Springaopex oldObj = springaopexService.getSpringaopex(sid);
+		String sql = " insert into log values(seq_log.nextval, ?, ?, null, 'DELETE', sysdate) ";
+		jdbcTemplate.update(sql, sid, oldObj.getSpass());
 	}
 
 }
