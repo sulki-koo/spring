@@ -1,5 +1,10 @@
 package springaopex.test;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,33 +22,37 @@ public class SpringaopexTest {
 	private SpringaopexService springaopexService;
 
 //	@Test
-//	public void testSelect() {
-//		List<Springaopex> springaopexsList = springaopexService.selectSpringaopex();
-//		assertNotNull(springaopexsList);
-//		System.out.println(springaopexsList);
-//	}
+	@Ignore
+	public void testSelect() {
+		List<Springaopex> springaopexsList = springaopexService.selectSpringaopex();
+		assertNotNull(springaopexsList);
+		System.out.println(springaopexsList);
+	}
 	
 //	@Test
-//	public void testInsert() {
-//		Springaopex springaopex = new Springaopex(0, "5678");
-//		int result = springaopexService.insertSpringaopex(springaopex);
-//		if(result>0) {
-//			System.out.println("등록완료");
-//		}
-//	}
+	@Ignore
+	public void testInsert() {
+		Springaopex springaopex = new Springaopex(0, "5678");
+		int result = springaopexService.insertSpringaopex(springaopex);
+		if(result>0) {
+			System.out.println("등록완료");
+		}
+	}
 	
 //	@Test
-//	public void testUpdate() {
-//		Springaopex springaopex = new Springaopex(1, "new1234");
-//		int result = springaopexService.updateSpringaopex(springaopex);
-//		if(result>0) {
-//			System.out.println("수정완료");
-//		}
-//	}
-	
-	@Test
+	@Ignore
+	public void testUpdate() {
+		Springaopex springaopex = new Springaopex(3, "new1234");
+		int result = springaopexService.updateSpringaopex(springaopex);
+		if(result>0) {
+			System.out.println("수정완료");
+		}
+	}
+
+//	@Test
+	@Ignore
 	public void testDelete() {
-		int result = springaopexService.deleteSpringaopex(21);
+		int result = springaopexService.deleteSpringaopex(4);
 		if(result>0) {
 			System.out.println("삭제완료");
 		}

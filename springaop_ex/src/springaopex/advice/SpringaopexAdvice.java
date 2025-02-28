@@ -2,6 +2,7 @@ package springaopex.advice;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -21,41 +22,34 @@ public class SpringaopexAdvice {
 	@Autowired
 	private SpringaopexService springaopexService;
 
-	@Before("execution(public * springaopex.service.*Impl.insertSpringaopex(..))")
-	public void before(JoinPoint joinpoint) throws Throwable {
-		String sql = " insert into log values(seq_log.nextval, seq_springaopex.currval, ?, ?, ?,  sysdate) ";
+	@After("execution(public * springaopex.service.*Impl.insertSpringaopex(..))")
+	public void insertAfter(JoinPoint joinpoint) throws Throwable {
+		String seqSql = " select seq_springaopex.currval from dual ";
+		Integer seq = jdbcTemplate.queryForObject(seqSql, Integer.class);
 		Springaopex obj = (Springaopex) joinpoint.getArgs()[0];
-		jdbcTemplate.update(sql, obj.getSpass(), null, "INSERT");
+		String sql = " insert into log values(seq_log.nextval, ?, ?, null, 'INSERT',  sysdate) ";
+		jdbcTemplate.update(sql, seq, obj.getSpass());
 	}
 
-	@Around("execution(public * springaopex.service.*Impl.updateSpringaopex(..)) || execution(public * springaopex.service.*Impl.deleteSpringaopex(..))")
-	public Object around(ProceedingJoinPoint pjp) {
-		String methodName = pjp.getSignature().getName();
+	@Around("execution(public * springaopex.service.*Impl.updateSpringaopex(..))")
+	public Object updateAround(ProceedingJoinPoint pjp) throws Throwable {
 		try {
 			Springaopex obj = (Springaopex) pjp.getArgs()[0];
 			Springaopex oldObj = springaopexService.getSpringaopex(obj.getSid());
-			
-			switch (methodName) {
-			case "updateSpringaopex": {
-				String sql = " insert into log values(seq_log.nextval, ?, ?, ?, ?, sysdate) ";
-				jdbcTemplate.update(sql, obj.getSid(), oldObj.getSpass(), obj.getSpass(), "UPDATE");
-				break;
-			}
-			case "deleteSpringaopex": {
-				String sql = " insert into log values(seq_log.nextval, ?, ?, ?, ?, sysdate) ";
-				int sid =  obj.getSid();
-				jdbcTemplate.update(sql, sid, oldObj.getSpass(), null, "DELETE");
-				break;
-			}
-			}
+			String sql = " insert into log values(seq_log.nextval, ?, ?, ?, 'UPDATE', sysdate) ";
+			jdbcTemplate.update(sql, obj.getSid(), oldObj.getSpass(), obj.getSpass());
 			return pjp.proceed();
-		} catch (Throwable th) {
-			th.printStackTrace();
-			return null;
 		} finally {
-			System.out.println(methodName + " 실행시 log 기록");
 		}
+	}
 
+	@Before("execution(public * springaopex.service.*Impl.deleteSpringaopex(..))")
+	public void deleteAround(JoinPoint joinPoint) throws Throwable {
+			Object obj = joinPoint.getArgs()[0];
+			int sid = (Integer) obj;
+			Springaopex oldObj = springaopexService.getSpringaopex(sid);
+			String sql = " insert into log values(seq_log.nextval, ?, ?, null, 'DELETE', sysdate) ";
+			jdbcTemplate.update(sql, sid, oldObj.getSpass());
 	}
 
 }

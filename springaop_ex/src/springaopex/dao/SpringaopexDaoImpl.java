@@ -19,7 +19,7 @@ public class SpringaopexDaoImpl implements SpringaopexDao {
 
 	@Override
 	public List<Springaopex> selectSpringaopex() {
-		String sql = " select * from springaopex ";
+		String sql = " select * from springaopex order by sid ";
 		return jdbcTemplate.query(sql, new RowMapper<Springaopex>() {
 			@Override
 			public Springaopex mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -56,7 +56,7 @@ public class SpringaopexDaoImpl implements SpringaopexDao {
 
 	@Override
 	public int deleteSpringaopex(int sid) {
-		String sql = " delete springaopex where=sid ";
+		String sql = " delete springaopex where sid=? ";
 		return this.jdbcTemplate.update(sql.toString(), sid);
 	}
 
