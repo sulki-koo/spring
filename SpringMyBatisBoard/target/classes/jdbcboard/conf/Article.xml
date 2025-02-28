@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="article">
+
+	<sql id="selectArticleLet">
+		SELECT 
+			A.AID AID, 
+			A.ASUBJECT ASUBJECT, 
+			A.ACONTENT ACONTENT, 
+			A.AVCNT AVCNT, 
+			A.AREGDATE AREGDATE, 
+			A.ADELYN ADELYN, 
+			A.AAFCNT AAFCNT, 
+			A.ARCNT ARCNT, 
+			A.BID BID, A.MID MID, 
+			B.BNAME BNAME 
+		FROM 
+			ARTICLE A, BOARD B
+		WHERE 
+			A.BID = B.BID 
+			AND 
+			A.ADELYN='N'
+	</sql>
+
+	<select id="selectArticle" parameterType="ArticleCriteria" resultType="Article">
+		<include refid="selectArticleLet" />
+		<if test="searchBoard!=null and searchBoard!=''">
+			AND A.BID=#{searchBoard}
+		</if>
+		<if test="searchClass!=null and searchClass!='' and searchVal!=null and searchVal!=''">
+			<if test="searchClass=='asubject'">
+				AND A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+			</if> 
+			<if test="searchClass=='acontent'">
+				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
+			</if>
+		</if>
+	</select>
+	
+	<select id="getArticle" parameterType="int" resultType="Article">
+		<include refid="selectArticleLet" />
+			AND A.AID=#{aid}
+	</select>
+	
+	<insert id="insertArticle" parameterType="Article">
+		INSERT INTO ARTICLE 
+		VALUES(ARTICLE_SEQ.NEXTVAL, #{asubject}, #{acontent}, #{avcnt}, 
+			SYSDATE, #{adelyn}, #{aafcnt}, #{arcnt}, #{bid}, #{mid})	
+	</insert>
+	
+	<update id="updateArticle" parameterType="Article">
+		UPDATE ARTICLE 
+		SET ASUBJECT=#{asubject}, ACONTENT=#{acontent}, BID=#{bid} 
+		WHERE AID=#{aid}	
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int">
+		UPDATE ARTICLE 
+		SET ADELYN='Y' 
+		WHERE AID=#{aid}
+	</delete>
+	
+	<update id="increaseAvcnt" parameterType="int">
+		UPDATE ARTICLE 
+		SET AVCNT = AVCNT +1 
+		WHERE AID=#{aid}
+	</update>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

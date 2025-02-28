@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+
+	<select id="selectReply" resultType="Reply">
+		SELECT * 
+		FROM REPLY 
+		WHERE RDELYN='N' 
+		ORDER BY RID DESC
+	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY 
+		VALUES(REPLY_SEQ.NEXTVAL, #{rcontent}, SYSDATE, #{rdelyn}, #{mid}, #{aid})
+	</insert>
+	
+	<delete id="deleteReply" parameterType="int">
+		UPDATE REPLY 
+		SET RDELYN='Y' 
+		WHERE RID=#{rid}
+	</delete>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

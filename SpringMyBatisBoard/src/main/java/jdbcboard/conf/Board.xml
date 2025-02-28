@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="selectBoard" resultType="Board">
+		SELECT * 
+		FROM BOARD 
+		ORDER BY BID DESC
+	</select>
+	
+	<select id="getBoard" parameterType="int" resultType="Board">
+		SELECT * 
+		FROM BOARD 
+		WHERE BID=#{bid}
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD 
+		VALUES(BOARD_SEQ.NEXTVAL, #{bname}, #{bacnt})
+	</insert>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD 
+		SET BNAME=#{bname} 
+		WHERE BID=#{bid}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE BOARD 
+		WHERE BID=#{bid}
+	</delete>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
