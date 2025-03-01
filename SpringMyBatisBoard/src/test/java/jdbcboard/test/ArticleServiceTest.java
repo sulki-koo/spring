@@ -1,5 +1,7 @@
 package jdbcboard.test;
 
+import static org.junit.Assert.assertNotEquals;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -19,9 +21,17 @@ public class ArticleServiceTest {
 	@Autowired
 	private	ArticleService articleService;
 		
-	@Test
+//	@Test
 	public void test() throws Throwable {
 		List<Article> articleList = articleService.selectArticle(new ArticleCriteria(null, null, null));
 		System.out.println(articleList);
 	}
+	
+	@Test
+	public void update() throws Throwable {
+		int result = articleService.updateArticle(new Article(6, "new제목", "new내용", 0, null, "N", 0, 0, 4, "kim1", null));
+		assertNotEquals(0, result);
+	}
+	
+	
 }

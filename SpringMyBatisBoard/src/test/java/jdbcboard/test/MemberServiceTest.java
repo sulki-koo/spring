@@ -1,6 +1,8 @@
 package jdbcboard.test;
 
 
+import static org.junit.Assert.assertNotEquals;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -19,13 +21,29 @@ public class MemberServiceTest {
 	@Autowired
 	private	MemberService memberService;
 		
-	@Test
+//	@Test
 	public void test() throws Throwable {
 		List<Member> memberList = memberService.selectMember();
-		System.out.println(memberList);
-		Member member = memberService.getMember("suga");
-		System.out.println(member);
+		for(Member member : memberList) {
+			System.out.println(member);
+		}
 	}
 	
-
+//	@Test
+	public void insert() throws Throwable{
+		int result = memberService.insertMember(new Member("aaaa", "석진", "1202", "진", "jin@jin", "1992", "N"));
+		assertNotEquals(0, result);
+	}
+	
+//	@Test
+	public void update() throws Throwable {
+		int result = memberService.updateMember(new Member("kim2", "new석진", "1202", "진", "jin@jin", "1992", "N"));
+		assertNotEquals(0, result);
+	}
+	
+	@Test
+	public void delete() throws Throwable {
+		int result = memberService.deleteMember("aaaa");
+		assertNotEquals(0, result);
+	}
 }
