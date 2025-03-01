@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="jdbcboard" />
+
+	<context:property-placeholder
+		location="classpath:jdbcboard/props/database.properties" />
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="driverClassName" value="${JDBC_DRIVER}" />
+		<property name="jdbcUrl" value="${JDBC_URL}" />
+		<property name="username" value="${JDBC_USER}" />
+		<property name="password" value="${JDBC_PASS}" />
+		<property name="maximumPoolSize" value="10" />
+		<property name="minimumIdle" value="5" />
+		<property name="idleTimeout" value="30000" />
+		<property name="maxLifetime" value="1800000" />
+		<property name="connectionTimeout" value="30000" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:/jdbcboard/conf/sqlMapConfig.xml" />
+	</bean>
+
+	<bean id="memberMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="jdbcboard.mapper.MemberMapper" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="boardMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="jdbcboard.mapper.BoardMapper" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="articleMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="jdbcboard.mapper.ArticleMapper" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="replyMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="jdbcboard.mapper.ReplyMapper" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="jdbcboard.mapper" />
+		<property name="annotationClass"
+			value="jdbcboard.mapper.MapperMarker" />
+	</bean>
+
+	
+    <!-- Spring MVC 설정 -->
+    <mvc:annotation-driven />  <!-- 어노테이션 기반 MVC 설정 -->
+
+    <!-- View Resolver 설정 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+</beans>

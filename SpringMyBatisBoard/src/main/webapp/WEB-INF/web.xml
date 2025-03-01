@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+	id="WebApp_ID" version="5.0">
+	<display-name>SpringMyBatisBoard</display-name>
+
+	<context-param>
+		<param-name>commandProp</param-name>
+		<param-value>/WEB-INF/props/command.properties</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>jdbcboard.listener.ApplicationListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>ViewResolverFilter</filter-name>
+		<filter-class>jdbcboard.filter.ViewResolverFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ViewResolverFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>JDBCBoardController</servlet-name>
+		<servlet-class>jdbcboard.controller.JDBCBoardController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JDBCBoardController</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/jsp/error/error403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/jsp/error/error500.jsp</location>
+	</error-page>
+
+</web-app>
