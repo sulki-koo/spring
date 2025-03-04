@@ -21,7 +21,7 @@ public class MemberAdvice {
 		System.out.println("@Before ※" + methodName + "※ 메소드 실행 전 수행");
 		// 타겟클래스의 메소드가 전달받은 인자들
 		for (Object obj : joinPoint.getArgs()) {
-			System.out.println("★전달된 인자 : " + obj + "\t");
+			System.out.println("★전달된 인자 : " + obj);
 		}
 	}
 
