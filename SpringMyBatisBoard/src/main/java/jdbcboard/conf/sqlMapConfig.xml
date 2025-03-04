@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="jdbcboard.model.Article" alias="Article" />
+		<typeAlias type="jdbcboard.model.Board" alias="Board" />
+		<typeAlias type="jdbcboard.model.Member" alias="Member" />
+		<typeAlias type="jdbcboard.model.Reply" alias="Reply" />
+		<typeAlias type="jdbcboard.model.ArticleCriteria" alias="ArticleCriteria" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="jdbcboard/conf/Article.xml" />
+		<mapper resource="jdbcboard/conf/Board.xml" />
+		<mapper resource="jdbcboard/conf/Member.xml" />
+		<mapper resource="jdbcboard/conf/Reply.xml" />
+	</mappers>
+	
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
