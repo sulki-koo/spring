@@ -42,8 +42,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public boolean checkLogin(String mid, String mpass) {
-		return memberDAO.checkLogin(mid, mpass);
+	public boolean checkLogin(Member member) {
+		return memberDAO.checkLogin(member);
 	}
 
 }

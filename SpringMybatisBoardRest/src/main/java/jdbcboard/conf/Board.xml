@@ -6,7 +6,7 @@
 	<select id="selectBoard" resultType="Board">
 		SELECT * 
 		FROM BOARD 
-		ORDER BY BID DESC
+		ORDER BY BID
 	</select>
 	
 	<select id="getBoard" parameterType="int" resultType="Board">
@@ -32,43 +32,3 @@
 	</delete>
 		
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -32,10 +32,10 @@
 		WHERE MID=#{mid}
 	</delete>
 	
-	<select id="checkloginMember" parameterType="Member" resultType="int">
-		SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END
+	<select id="checkLogin" parameterType="Member" resultType="boolean">
+		SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
 		FROM MEMBER 
-		WHERE MID=#{mid} AND MPASS=#{mpass}
+		WHERE MID=#{mid} AND MPASS=#{mpass} AND MDELYN='N'
 	</select>
 	
 </mapper>

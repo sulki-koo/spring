@@ -16,7 +16,7 @@
 		<tbody>
 			<c:forEach var="member" items="${memberList}">
 			<tr>
-				<td> <a href='getMember?mid=${member.mid}';">${member.mid}</a></td>			
+				<td> <a href='members/${member.mid}';">${member.mid}</a></td>			
 				<td>${member.mname}</td>			
 				<td>${member.malias}</td>			
 				<td>${member.memail}</td>			
@@ -24,8 +24,8 @@
 				<td>${member.mdelyn}</td>
 				<c:if test="${sessionScope.ss_mid==member.mid}">
 				<td>
-					<input type="button" value="수정"  onclick="location.href='/updateMemberForm?mid=${member.mid}';" class="btn btn-outline-primary">&nbsp;
-					<input type="button" value="삭제" onclick="location.href='/deleteMember?mid=${member.mid}';" class="btn btn-outline-primary">
+					<input type="button" value="수정"  onclick="location.href='/member/updateMemberForm/${member.mid}';" class="btn btn-outline-primary">&nbsp;
+					<input type="button" value="삭제" onclick="member.deleteMember('${member.mid}');" class="btn btn-outline-primary">
 				</td>
 				</c:if>
 			</tr>

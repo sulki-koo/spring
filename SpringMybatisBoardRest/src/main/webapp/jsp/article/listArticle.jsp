@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 
 	<%@ include file="/jsp/include/header.jsp" %>
-		<form action="/selectArticle.do" method="post">
+		<form action="/article/articles" method="get">
 		<select name="searchBoard" class="form-select" aria-label="Default select example">
 			<option value="" <c:if test="${empty searchBoard}">selected</c:if>>게시판</option>
 		</select>&nbsp;
@@ -13,7 +13,7 @@
 		</select>&nbsp;
 		<input type="text" name="searchVal" value="${searchVal}">&nbsp;
 		<input type="submit" value="검색"  class="btn btn-info">
-		<input id="insertBtn" type="button" value="등록" data-mid="${sessionScope.ss_mid}" data-location="/insertArticleForm.do"  class="btn btn-light">
+		<input id="insertBtn" type="button" value="등록" data-mid="${sessionScope.ss_mid}" data-location="/article/insertArticleForm"  class="btn btn-light">
 		</form>
 	<table>
 		<tr>
@@ -30,7 +30,7 @@
 			<tr>
 				<td>${article.aid}</td>
 				<td>${article.bname}</td>
-				<td><a href='getArticle.do?aid=${article.aid}';">${article.asubject}</a></td>
+				<td><a href='articles/${article.aid}';">${article.asubject}</a></td>
 				<td>${article.avcnt}</td>
 				<td>${article.mid}</td>
 				<td><fmt:formatDate value="${article.aregdate}" pattern="YY.MM.dd  HH:mm"/></td>

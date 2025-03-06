@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>${sessionScope.ss_mid}님 게시물등록</h3>
-	<form action="/insertArticle.do" method="post">
+	<form action="/article/articles" method="post">
 		<input type="hidden" name="mid" value="${sessionScope.ss_mid}">
 		<div class="row">
 			  <div class="col">
@@ -18,7 +18,7 @@
   			<label for="floatingTextarea2">Comments</label>
 		</div>
 	<input type="submit" value="등록" class="btn btn-outline-primary">
-	<input type="button" value="취소" onclick="location.href='/selectArticle.do';" class="btn btn-outline-primary">
+	<input type="button" value="취소" onclick="location.href='/article/articles';" class="btn btn-outline-primary">
 	</form>
 <script>
 	$(function() {

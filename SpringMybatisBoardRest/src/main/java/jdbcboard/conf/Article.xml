@@ -36,7 +36,7 @@
 				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
 			</if>
 		</if>
-		
+		ORDER BY AID DESC
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="Article">
@@ -46,21 +46,20 @@
 	
 	<insert id="insertArticle" parameterType="Article">
 		INSERT INTO ARTICLE 
-		VALUES(ARTICLE_SEQ.NEXTVAL, #{asubject}, #{acontent}, #{avcnt}, 
-			SYSDATE, #{adelyn}, #{aafcnt}, #{arcnt}, #{bid}, #{mid})	
+		VALUES(ARTICLE_SEQ.NEXTVAL, #{asubject}, #{acontent}, 0, SYSDATE, 'N', 0, 0, #{bid}, #{mid})	
 	</insert>
 	
 	<update id="updateArticle" parameterType="Article">
 		UPDATE ARTICLE 
-		SET ASUBJECT=#{asubject}, ACONTENT=#{acontent}, BID=#{bid} 
+		SET ASUBJECT=#{asubject}, ACONTENT=#{acontent}
 		WHERE AID=#{aid}	
 	</update>
 	
-	<delete id="deleteArticle" parameterType="int">
+	<update id="deleteArticle" parameterType="int">
 		UPDATE ARTICLE 
 		SET ADELYN='Y' 
 		WHERE AID=#{aid}
-	</delete>
+	</update>
 	
 	<update id="increaseAvcnt" parameterType="int">
 		UPDATE ARTICLE 

@@ -16,6 +16,6 @@ public interface MemberDAO {
 	
 	public abstract  int deleteMember(String mid);
 	
-	public abstract  boolean checkLogin(String mid, String mpass);
+	public abstract  boolean checkLogin(Member member);
 
 }

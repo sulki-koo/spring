@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>${member.mid}님의 회원정보수정</h3><br>
-	<form action="/updateMember.do" method="post">
+	<form name="updateMemberForm">
 		<input type="hidden" name="mid" value="${member.mid}">
 		<div class="row">
 			  <div class="col">
@@ -25,6 +25,6 @@
 			  </div>
 		</div>
 	<input type="submit" value="수정" class="btn btn-outline-primary">
-	<input type="button" value="목록"	onclick="location.href='/selectMember.do';" class="btn btn-outline-primary">
+	<input type="button" value="목록"	onclick="location.href='/member/members';" class="btn btn-outline-primary">
 	</form>
 <%@ include file="/jsp/include/footer.jsp" %>

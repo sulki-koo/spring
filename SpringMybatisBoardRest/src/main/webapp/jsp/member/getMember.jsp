@@ -31,6 +31,6 @@
 		</tbody>
 	</table>
 	<p>
-		<input type="button" value="목록"	onclick="location.href='/selectMember.do';" class="btn btn-outline-primary">
+		<input type="button" value="목록"	onclick="location.href='/member/members';" class="btn btn-outline-primary">
 	</p>
 <%@ include file="/jsp/include/footer.jsp" %>

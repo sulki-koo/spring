@@ -31,9 +31,9 @@
 		</tbody>
 	</table>
 	<p>
-		<input id="updateBtn"  type="button" value="수정" data-mid="${article.mid}" data-ssmid="${sessionScope.ss_mid}" data-location="/updateArticleForm.do?aid=${article.aid}" class="btn btn-outline-primary">&nbsp;
-		<input id="deleteBtn"  type="button" value="삭제" data-mid="${article.mid}"  data-ssmid="${sessionScope.ss_mid}" data-location="/deleteArticle.do?aid=${article.aid}" class="btn btn-outline-primary">&nbsp;
-		<input type="button" value="목록" onclick="location.href='/selectArticle.do';" class="btn btn-outline-primary">
+		<input id="updateBtn"  type="button" value="수정" data-mid="${article.mid}" data-ssmid="${sessionScope.ss_mid}" data-location="/article/updateArticleForm/${article.aid}" class="btn btn-outline-primary">&nbsp;
+		<input id="deleteBtn"  type="button" value="삭제" data-mid="${article.mid}"  data-ssmid="${sessionScope.ss_mid}" data-aid="${article.aid}" class="btn btn-outline-primary">&nbsp;
+		<input type="button" value="목록" onclick="location.href='/article/articles';" class="btn btn-outline-primary">
 	</p>
 		<table id="content">
 			<tr>

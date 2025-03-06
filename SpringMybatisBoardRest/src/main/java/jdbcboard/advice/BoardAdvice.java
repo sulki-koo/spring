@@ -1,5 +1,7 @@
 package jdbcboard.advice;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,47 +25,30 @@ public class BoardAdvice {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private ArticleService articleService;
-	@Autowired
-	private BoardService boardService;
-	@Autowired
-	private ReplyService replyService;
+	private HttpServletRequest request;
 
 	@After("execution(* jdbcboard.service.impl.*.insert*(..)) || execution(* jdbcboard.service.impl.*.update*(..))")
 	public void querylog(JoinPoint joinPoint) throws Throwable {
 		String methodName = joinPoint.getSignature().getName();
-		String mid = "";
+		String ss_mid = (String) request.getSession().getAttribute("ss_mid");
+		int result = 0;
 
 		String sql = " insert into querylog values(seq_querylog.nextval, ?, ?, ?, sysdate) ";
 		if (methodName.startsWith("insert") || methodName.startsWith("update")) {
 			String action = methodName.replaceAll("^(insert|update).*", "$1").toUpperCase();
 			String typeName = methodName.substring(action.length()).toUpperCase();
-			
-			switch (typeName) {
-			case "MEMBER":
+
+			if (typeName.equals("MEMBER")) {
 				Member member = (Member) joinPoint.getArgs()[0];
-				mid = member.getMid();
-				break;
-			case "ARTICLE":
-				Article article = (Article) joinPoint.getArgs()[0];
-				mid = article.getMid();
-				break;
-			case "REPLY":
-				Reply reply = (Reply) joinPoint.getArgs()[0];
-				mid = reply.getMid();
-				break;
-			}
-			
-			System.out.println("액션: " + action); // 예: insert, update
-			System.out.println("타입 이름: " + typeName); // 예: Article
-			System.out.println("작성자 : " + mid);
-			int result = jdbcTemplate.update(sql, typeName, action, mid);
-			if (result > 0) {
-				System.out.println("로그기록함");
+				result = jdbcTemplate.update(sql, typeName, action, member.getMid());
 			} else {
-				System.out.println("로그 기록 실패");
+				result = jdbcTemplate.update(sql, typeName, action, ss_mid);
+			}
+
+			if (result > 0) {
+				System.out.println("로깅 [" + ss_mid + " 액션: " + action + ", 타입 이름: " + typeName + "]");
+			} else {
+				System.out.println("로깅 실패");
 			}
 		}
 	}
@@ -71,33 +56,16 @@ public class BoardAdvice {
 	@Before("execution(* jdbcboard.service.impl.*.delete*(..))")
 	public void deltequerylog(JoinPoint joinPoint) throws Throwable {
 		String sql = " insert into querylog values(seq_querylog.nextval, ?, 'DELETE', ?, sysdate) ";
-
 		String typeName = joinPoint.getSignature().getName().substring(6).toUpperCase();
-		String id = (String)joinPoint.getArgs()[0];
-		String mid = "";
+		String ss_mid = (String) request.getSession().getAttribute("ss_mid");
+		int result = 0;
 
-		switch (typeName) {
-		case "MEMBER":
-			mid = id;
-			break;
-		case "ARTICLE":
-			Article article = articleService.getArticle(Integer.parseInt(id));
-			mid = article.getMid();
-			break;
-		case "REPLY":
-			Reply reply = replyService.getReply(Integer.parseInt(id));
-			mid = reply.getMid();
-			break;
-		}
-		System.out.println("액션: delete"); // 예: insert, update
-		System.out.println("타입 이름: " + typeName); // 예: Article
-		System.out.println("작성자 : " + mid);
-		
-		int result = jdbcTemplate.update(sql, typeName, mid);
+		result = jdbcTemplate.update(sql, typeName, ss_mid);
+
 		if (result > 0) {
-			System.out.println("로그기록함");
+			System.out.println("로깅 [" + ss_mid + " 액션: delete, 타입 이름: " + typeName + "]");
 		} else {
-			System.out.println("로그 기록 실패");
+			System.out.println("로깅 실패");
 		}
 	}
 

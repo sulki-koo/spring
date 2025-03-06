@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>게시물아이디 : ${article.aid} 수정</h3><br>
-	<form action="/updateArticle.do" method="post">
+	<form name="updateArticleForm">
 		<input type="hidden" name="aid" value="${article.aid}">
 		<div class="row">
 			  <div class="col">
@@ -14,6 +14,6 @@
   			<label for="floatingTextarea2">Comments</label>
 		</div>
 	<input type="submit" value="수정" class="btn btn-outline-primary">
-	<input type="button" value="목록"	onclick="location.href='/selectArticle.do';" class="btn btn-outline-primary">
+	<input type="button" value="목록"	onclick="location.href='/article/articles';" class="btn btn-outline-primary">
 	</form>
 <%@ include file="/jsp/include/footer.jsp" %>

@@ -58,21 +58,14 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public boolean checkLogin(String mid, String mpass) {
+	public  boolean checkLogin(Member member) {
 //		SqlSession sqlSession = SqlMapUtil.getSqlSession();
 //		Member member = new Member(mid, null, mpass, null, null, null, null);
 //		boolean result = (int)(SqlMapUtil.getSqlSession()
 //				.selectOne("member.checkloginMember", member))>0 ? true : false;
 //		sqlSession.close();	
-		return memberMapper.checkLogin(mid, mpass);
+//		member = new Member(member.getMid(), null, member.getMpass(), null, null, null, null);
+		return memberMapper.checkLogin(member);
 	}
 
 }
-
-
-
-
-
-
-
-
