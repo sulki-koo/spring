@@ -6,7 +6,7 @@ import jdbcboard.model.Reply;
 
 public interface ReplyDAO {
 	
-	public abstract List<Reply> selectReply();
+	public abstract List<Reply> selectReply(int aid);
 
 	public abstract Reply getReply(int rid);
 

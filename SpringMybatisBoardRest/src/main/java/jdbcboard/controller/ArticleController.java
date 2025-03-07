@@ -25,12 +25,13 @@ import jdbcboard.service.ArticleService;
 public class ArticleController {
 
 	@Autowired
-	ArticleService articleService;
+	private ArticleService articleService;
 	
 	@GetMapping("/articles")
 	public ModelAndView selectArticle(@ModelAttribute ArticleCriteria articleCriteria) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("articleList", articleService.selectArticle(articleCriteria));
+		mav.addObject("articleCriteria", articleCriteria);
 		mav.setViewName("/article/listArticle");
 		return mav;
 	}

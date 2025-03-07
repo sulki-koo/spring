@@ -2,7 +2,7 @@
 
 	<%@ include file="/jsp/include/header.jsp" %>
 	<h3>회원가입</h3>
-	<form action="/member/members" method="post">
+	<form name="memberForm" action="/member/members" method="post">
 		<div class="row">
 			  <div class="col">
 			    <input type="text" name="mname" class="form-control" placeholder="name" aria-label="name">

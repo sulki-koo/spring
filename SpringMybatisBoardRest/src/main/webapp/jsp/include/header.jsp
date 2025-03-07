@@ -16,6 +16,10 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/dayjs.min.js"></script>
 <script defer src="${pageContext.request.contextPath}/js/board.js"></script>
+<script defer src="${pageContext.request.contextPath}/js/authority.js"></script>
+<script defer src="${pageContext.request.contextPath}/js/member.js"></script>
+<script defer src="${pageContext.request.contextPath}/js/article.js"></script>
+<script defer src="${pageContext.request.contextPath}/js/reply.js"></script>
 </head>
 <body>
 	<div id="wrapper">

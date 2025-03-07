@@ -18,11 +18,11 @@ public class ReplyDAOImpl implements ReplyDAO {
 	private ReplyMapper replyMapper;
 
 	@Override
-	public List<Reply> selectReply() {
+	public List<Reply> selectReply(int aid) {
 //		SqlSession sqlSession = SqlMapUtil.getSqlSession();
 //		List<Reply> replyList = sqlSession.selectList("reply.selectReply");
 //		sqlSession.close();		
-		return replyMapper.selectReply();
+		return replyMapper.selectReply(aid);
 	}
 	
 	@Override

@@ -55,7 +55,7 @@
 	</ul>
 	<script>
 		$(function() {
-			board.getReplyList('${article.aid}', '${sessionScope.ss_mid}' );
+			reply.getReplyList('${article.aid}', '${sessionScope.ss_mid}' );
 		});
 	</script>
 <%@ include file="/jsp/include/footer.jsp" %>

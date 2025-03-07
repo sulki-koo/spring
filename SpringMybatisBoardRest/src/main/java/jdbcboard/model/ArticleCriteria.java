@@ -6,26 +6,26 @@ public class ArticleCriteria implements Serializable {
 	
 	private static final long serialVersionUID = 2389472839478923L;
 	
-	private String searchBoard;
+	private String bid;
 	private String searchClass;
 	private String searchVal;
 	
 	public ArticleCriteria() {
 	}
 
-	public ArticleCriteria(String searchBoard, String searchClass, String searchVal) {
+	public ArticleCriteria(String bid, String searchClass, String searchVal) {
 		super();
-		this.searchBoard = searchBoard;
+		this.bid = bid;
 		this.searchClass = searchClass;
 		this.searchVal = searchVal;
 	}
 
-	public String getSearchBoard() {
-		return searchBoard;
+	public String getBid() {
+		return bid;
 	}
 
-	public void setSearchBoard(String searchBoard) {
-		this.searchBoard = searchBoard;
+	public void setBid(String bid) {
+		this.bid = bid;
 	}
 
 	public String getSearchClass() {
@@ -46,7 +46,7 @@ public class ArticleCriteria implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ArticleCriteria [searchBoard=" + searchBoard + ", searchClass=" + searchClass + ", searchVal="
+		return "ArticleCriteria [bid=" + bid + ", searchClass=" + searchClass + ", searchVal="
 				+ searchVal + "]";
 	}
 	

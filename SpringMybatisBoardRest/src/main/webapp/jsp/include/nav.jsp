@@ -3,14 +3,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="requestURI" value="${requestScope.requestURI}" />
-<c:if test="${fn:contains(requestURI, 'Article')}">
+<c:set var="requestURI" value="${pageContext.request.requestURI}" />
+
+<c:if test="${fn:contains(requestURI, '/article')}">
 	<c:set var="articleActive" value=" active" />
 </c:if>
-<c:if test="${fn:contains(requestURI, 'Board')}">
+<c:if test="${fn:contains(requestURI, '/board')}">
 	<c:set var="boardActive" value=" active" />
 </c:if>
-<c:if test="${fn:contains(requestURI, 'Member')}">
+<c:if test="${fn:contains(requestURI, '/member')}">
 	<c:set var="memberActive" value=" active" />
 </c:if>
 

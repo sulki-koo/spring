@@ -16,8 +16,8 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyDAO replyDAO;
 	
 	@Override
-	public List<Reply> selectReply() {
-		return replyDAO.selectReply();
+	public List<Reply> selectReply(int aid) {
+		return replyDAO.selectReply(aid);
 	}
 	
 	@Override

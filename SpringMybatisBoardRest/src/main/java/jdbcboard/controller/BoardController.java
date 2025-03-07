@@ -25,7 +25,7 @@ import jdbcboard.service.BoardService;
 public class BoardController {
 
 	@Autowired
-	BoardService boardService;
+	private BoardService boardService;
 
 	@GetMapping("/boards")
 	public ModelAndView selectBoard() {

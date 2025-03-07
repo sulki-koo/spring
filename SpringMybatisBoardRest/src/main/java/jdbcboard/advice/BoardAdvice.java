@@ -30,7 +30,6 @@ public class BoardAdvice {
 	@After("execution(* jdbcboard.service.impl.*.insert*(..)) || execution(* jdbcboard.service.impl.*.update*(..))")
 	public void querylog(JoinPoint joinPoint) throws Throwable {
 		String methodName = joinPoint.getSignature().getName();
-		String ss_mid = (String) request.getSession().getAttribute("ss_mid");
 		int result = 0;
 
 		String sql = " insert into querylog values(seq_querylog.nextval, ?, ?, ?, sysdate) ";
@@ -42,11 +41,12 @@ public class BoardAdvice {
 				Member member = (Member) joinPoint.getArgs()[0];
 				result = jdbcTemplate.update(sql, typeName, action, member.getMid());
 			} else {
+				String ss_mid = (String) request.getSession().getAttribute("ss_mid");
 				result = jdbcTemplate.update(sql, typeName, action, ss_mid);
 			}
 
 			if (result > 0) {
-				System.out.println("로깅 [" + ss_mid + " 액션: " + action + ", 타입 이름: " + typeName + "]");
+				System.out.println("로깅 [액션: " + action + ", 타입 이름: " + typeName + "]");
 			} else {
 				System.out.println("로깅 실패");
 			}

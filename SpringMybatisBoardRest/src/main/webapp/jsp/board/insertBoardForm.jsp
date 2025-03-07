@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>게시판등록</h3>
-	<form action="/board/boards" method="post">
+	<form name="boardForm" action="/board/boards" method="post">
 		게시판명 : <input type="text" name="bname"><br><br>
 	<input type="submit" value="등록" class="btn btn-outline-primary">
 	<input type="button" value="취소" onclick="location.href='/board/boards';" class="btn btn-outline-primary">

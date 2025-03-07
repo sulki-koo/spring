@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>게시물아이디 : ${article.aid} 수정</h3><br>
-	<form name="updateArticleForm">
+	<form name="articleForm">
 		<input type="hidden" name="aid" value="${article.aid}">
 		<div class="row">
 			  <div class="col">

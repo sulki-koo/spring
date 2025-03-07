@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>${member.mid}님의 회원정보수정</h3><br>
-	<form name="updateMemberForm">
+	<form name="memberForm">
 		<input type="hidden" name="mid" value="${member.mid}">
 		<div class="row">
 			  <div class="col">

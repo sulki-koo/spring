@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>게시판정보수정</h3>
-	<form name="updateBoardForm">
+	<form name="boardForm">
 		<input type="hidden" name="bid" value="${board.bid}">
 		게시판아이디 : ${board.bid} | 게시물수 : ${board.bacnt}<br>
 		게시판명 : <input type="text" name="bname" value="${board.bname}"><br><br>

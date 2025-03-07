@@ -27,7 +27,7 @@ import jdbcboard.service.MemberService;
 public class MemberController {
 
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 
 	@GetMapping("/members")
 	public ModelAndView selectMember() {

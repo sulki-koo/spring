@@ -7,7 +7,7 @@ import jdbcboard.model.Reply;
 @MapperMarker
 public interface ReplyMapper {
 
-	public abstract List<Reply> selectReply();
+	public abstract List<Reply> selectReply(int aid);
 
 	public abstract Reply getReply(int rid);
 

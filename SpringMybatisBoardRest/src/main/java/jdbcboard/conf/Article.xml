@@ -25,16 +25,26 @@
 
 	<select id="selectArticle" parameterType="ArticleCriteria" resultType="Article">
 		<include refid="selectArticleLet" />
-		<if test="searchBoard!=null and searchBoard!=''">
-			AND A.BID=#{searchBoard}
+		<if test="bid!=null and bid!=''">
+			AND A.BID=#{bid}
 		</if>
 		<if test="searchClass!=null and searchClass!='' and searchVal!=null and searchVal!=''">
-			<if test="searchClass=='asubject'">
-				AND A.ASUBJECT LIKE '%'||#{searchVal}||'%'
-			</if> 
-			<if test="searchClass=='acontent'">
-				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
-			</if>
+			<choose>
+	    			<when test="searchClass == 'asubject'">
+	    				AND A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+	    			</when>
+	    			<when test="searchClass == 'acontent'">
+	    				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
+	    			</when>
+	    			<when test="searchClass == 'mid'">
+	    				AND A.MID LIKE '%'||#{searchVal}||'%'
+	    			</when>
+	    			<otherwise>
+	    				AND (A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+							 OR A.ACONTENT LIKE '%'||#{searchVal}||'%'
+							 OR A.MID LIKE '%'||#{searchVal}||'%')
+	    			</otherwise>
+	    		</choose>
 		</if>
 		ORDER BY AID DESC
 	</select>

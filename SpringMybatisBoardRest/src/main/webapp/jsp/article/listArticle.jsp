@@ -2,16 +2,16 @@
 
 	<%@ include file="/jsp/include/header.jsp" %>
 		<form action="/article/articles" method="get">
-		<select name="searchBoard" class="form-select" aria-label="Default select example">
-			<option value="" <c:if test="${empty searchBoard}">selected</c:if>>게시판</option>
+		<select name="bid" class="form-select" aria-label="Default select example">
+			<option value="" <c:if test="${empty articleCriteria.bid}">selected</c:if>>게시판</option>
 		</select>&nbsp;
 		<select name="searchClass">
-			<option <c:if test="${empty searchClass}">selected</c:if>>분류/전체</option>
-			<option value="asubject" <c:if test="${searchClass=='asubject'}">selected</c:if>>제목</option>
-			<option value="acontent" <c:if test="${searchClass=='acontent'}">selected</c:if>>내용</option>
-			<option value="mid" <c:if test="${searchClass=='mid'}">selected</c:if>>작성자아이디</option>
+			<option <c:if test="${empty articleCriteria.searchClass}">selected</c:if>>분류/전체</option>
+			<option value="asubject" <c:if test="${articleCriteria.searchClass=='asubject'}">selected</c:if>>제목</option>
+			<option value="acontent" <c:if test="${articleCriteria.searchClass=='acontent'}">selected</c:if>>내용</option>
+			<option value="mid" <c:if test="${articleCriteria.searchClass=='mid'}">selected</c:if>>작성자아이디</option>
 		</select>&nbsp;
-		<input type="text" name="searchVal" value="${searchVal}">&nbsp;
+		<input type="text" name="searchVal" value="${articleCriteria.searchVal}">&nbsp;
 		<input type="submit" value="검색"  class="btn btn-info">
 		<input id="insertBtn" type="button" value="등록" data-mid="${sessionScope.ss_mid}" data-location="/article/insertArticleForm"  class="btn btn-light">
 		</form>
@@ -41,7 +41,7 @@
 	</table>
 <script>
 	$(function() {
-   		board.getBoardList("${searchBoard}");
+   		board.getBoardList("${articleCriteria.bid}");
 	});
 </script>
 <%@ include file="/jsp/include/footer.jsp" %>
