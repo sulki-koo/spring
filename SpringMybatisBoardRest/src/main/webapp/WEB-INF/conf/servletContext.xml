@@ -12,8 +12,7 @@
 	<mvc:default-servlet-handler />
 	
 	<!-- ViewResolver -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/jsp" />
 		<property name="suffix" value=".jsp"></property>
 	</bean>

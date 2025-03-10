@@ -16,8 +16,15 @@
  			 <textarea name="acontent" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
   			<label for="floatingTextarea2">Comments</label>
 		</div>
-	<input type="submit" value="등록" class="btn btn-outline-primary">
-	<input type="button" value="취소" onclick="location.href='/article/articles';" class="btn btn-outline-primary">
+		<div class="row">
+			  <div class="col">
+			    <input type="file" id="fileInput" multiple class="form-control" placeholder="파일" aria-label="파일">
+			  </div>
+			  <div class="col">
+				<input type="submit" value="등록" class="btn btn-outline-primary">
+				<input type="button" value="취소" onclick="location.href='/article/articles';" class="btn btn-outline-primary">
+			</div>
+		</div>
 	</form>
 <script>
 	$(function() {

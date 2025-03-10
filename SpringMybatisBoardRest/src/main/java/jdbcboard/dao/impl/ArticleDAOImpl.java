@@ -21,9 +21,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public List<Article> selectArticle(ArticleCriteria articleCriteria) {
-//		SqlSession sqlSession = SqlMapUtil.getSqlSession();
-//		List<Article> articleList = sqlSession.selectList("article.selectArticle", articleCriteria);
-//		sqlSession.close();
 		return articleMapper.selectArticle(articleCriteria);
 	}
 

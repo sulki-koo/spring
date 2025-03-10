@@ -39,13 +39,29 @@ $("form[name='articleForm']").on("submit", e => {
 	e.preventDefault();
 	if (!asubject.val()) {
 		alert('제목을 입력해주세요!');
-		asubject.focus();
+		asubject.focus();s
 		return false;
 	} else {
 		if (aid.val()) {
 			article.updateArticle();
 		} else {
-			articleForm.off("submit").submit();
+			// 파일 업로드 처리
+			const fileInput = document.querySelector("#fileInput");
+			const formData = new FormData();
+			for(let file of fileInput.files) {
+				formData.append("files", file);
+				console.log(file);
+			}
+			axios.post(
+				"/file/fileupload",
+				formData,
+				{
+					headers: {"Content-Type":"multipart/formData"}
+				}
+			).then(response => {
+				console.log(response.data.message);
+			});
+			//articleForm.off("submit").submit();
 		}
 	}
 });

@@ -18,5 +18,5 @@ public interface ArticleService {
 	public abstract int deleteArticle(int aid);
 
 	public abstract int increaseAvcnt(int aid);
-
+	
 }

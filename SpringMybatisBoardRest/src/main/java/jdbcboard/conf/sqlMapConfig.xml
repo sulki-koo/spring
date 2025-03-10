@@ -13,8 +13,8 @@
 		<typeAlias type="jdbcboard.model.Board" alias="Board" />
 		<typeAlias type="jdbcboard.model.Member" alias="Member" />
 		<typeAlias type="jdbcboard.model.Reply" alias="Reply" />
-		<typeAlias type="jdbcboard.model.ArticleCriteria"
-			alias="ArticleCriteria" />
+		<typeAlias type="jdbcboard.model.ArticleCriteria" alias="ArticleCriteria" />
+		<typeAlias type="jdbcboard.model.AttachFile" alias="AttachFile" />
 	</typeAliases>
 
 	<mappers>
@@ -22,6 +22,7 @@
 		<mapper resource="jdbcboard/conf/Board.xml" />
 		<mapper resource="jdbcboard/conf/Member.xml" />
 		<mapper resource="jdbcboard/conf/Reply.xml" />
+		<mapper resource="jdbcboard/conf/AttachFile.xml" />
 	</mappers>
 
 </configuration>
