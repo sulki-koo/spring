@@ -6,6 +6,9 @@
 #loginArea { width: 1024px; text-align: right; margin: 20px 0 10px 0l }
 #insertP { width: 0px auto; text-align: right; }
 
+#attachFiles { list-style: none; padding-left: 0; }
+#attachFiles li { text-align: left; }
+
 nav {	 margin: 15px 0;}
 nav ul li { font-size: 1.2em; font-weight: bold;  text-align: center;}
 table { width: 1024px; border-collapse: collapse; }

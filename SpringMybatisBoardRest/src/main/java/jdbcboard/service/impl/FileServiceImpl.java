@@ -11,13 +11,18 @@ import jdbcboard.service.FileService;
 
 @Service("fileService")
 public class FileServiceImpl implements FileService {
-	
+
 	@Autowired
 	private FileDAO fileDAO;
 
 	@Override
 	public List<AttachFile> selectAttachFile(int aid) {
 		return fileDAO.selectAttachFile(aid);
+	}
+
+	@Override
+	public AttachFile getAttachFile(int afid) {
+		return fileDAO.getAttachFile(afid);
 	}
 
 	@Override

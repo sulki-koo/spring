@@ -9,7 +9,7 @@
 				<td>${article.aid}</td>
 			</tr>
 			<tr>
-				<td>게시판</td>
+				<td>게시판명</td>
 				<td>${article.bname}</td>
 			</tr>
 			<tr>
@@ -27,6 +27,10 @@
 			<tr>
 				<td>첨부파일수</td>
 				<td>${article.aafcnt}</td>
+			</tr>
+			<tr>
+				<td>첨부파일</td>
+				<td><ul id="attachFiles"></ul></td>
 			</tr>
 		</tbody>
 	</table>
@@ -55,6 +59,7 @@
 	</ul>
 	<script>
 		$(function() {
+			article.selectAttachFile('${article.aid}', 'getArticle');
 			reply.getReplyList('${article.aid}', '${sessionScope.ss_mid}' );
 		});
 	</script>

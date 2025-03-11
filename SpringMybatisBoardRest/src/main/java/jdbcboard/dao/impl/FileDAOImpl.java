@@ -19,6 +19,11 @@ public class FileDAOImpl implements FileDAO {
 	public List<AttachFile> selectAttachFile(int aid) {
 		return fileMapper.selectAttachFile(aid);
 	}
+	
+	@Override
+	public AttachFile getAttachFile(int afid) {
+		return fileMapper.getAttachFile(afid);
+	}
 
 	@Override
 	public int insertAttachFile(AttachFile attachfile) {

@@ -11,6 +11,13 @@
 		ORDER BY AFID DESC
 	</select>
 	
+	<select id="getAttachFile" parameterType="int" resultType="AttachFile">
+		SELECT *
+		FROM ATTACHFILE
+		WHERE
+			AFID=#{afid}
+	</select>
+	
 	<insert id="insertAttachFile" parameterType="AttachFile">
 		INSERT INTO ATTACHFILE 
 		VALUES(SEQ_ATTACHFILE.NEXTVAL, #{afcname}, #{afsname}, SYSDATE, 352)

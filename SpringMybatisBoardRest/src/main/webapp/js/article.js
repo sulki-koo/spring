@@ -7,6 +7,7 @@ const article = {
 				aid: aid,
 				asubject: articleForm.find("[name='asubject']").val(),
 				acontent: articleForm.find("[name='acontent']").val(),
+				bid: articleForm.find("[name='bid']").val()
 			}, {
 				headers: {
 					'Content-Type': 'application/json'
@@ -27,6 +28,35 @@ const article = {
 					}
 				});
 		}
+	},
+	selectAttachFile: function(aid, pageType) {
+		axios.get('/file/selectAttachFile/' + aid)
+			.then(response => {
+				this.printAttachFile(response.data, pageType);
+			});
+	},
+	printAttachFile: function(data, pageType) {
+		if (data.length>0) {
+			let fileListHtml = '';
+			for (eachAttachFile of data) {
+				let actionLink = '';
+				if(pageType=='getArticle'){
+					actionLink = `<a href='/file/filedownload/${eachAttachFile.afid}'>[다운로드]</a>`;
+				} else if (pageType=='updateArticleForm'){
+					actionLink = `<a href='javascript:if(confirm("삭제하시겠습니까?")) article.deleteAttachFile("${eachAttachFile.aid}", "${eachAttachFile.afid}")'>[삭제]</a>`;
+				}
+				fileListHtml += `<li>${eachAttachFile.afcname} ${actionLink}</li>`;
+			}
+			$("#attachFiles").html(fileListHtml);
+		}else{
+			$("#attachFiles").html('<li>첨부파일이 없습니다.</li>');
+		}
+	},
+	deleteAttachFile: function(aid, afid) {
+		axios.delete('/file/deleteAttachFile/'+afid)
+		.then(response => {
+			this.selectAttachFile(aid, 'updateArticleForm');
+		});
 	}
 
 }
@@ -39,16 +69,13 @@ $("form[name='articleForm']").on("submit", e => {
 	e.preventDefault();
 	if (!asubject.val()) {
 		alert('제목을 입력해주세요!');
-		asubject.focus();s
+		asubject.focus(); s
 		return false;
 	} else {
-		if (aid.val()) {
-			article.updateArticle();
-		} else {
-			// 파일 업로드 처리
+		// 파일 업로드 처리
 			const fileInput = document.querySelector("#fileInput");
 			const formData = new FormData();
-			for(let file of fileInput.files) {
+			for (let file of fileInput.files) {
 				formData.append("files", file);
 				console.log(file);
 			}
@@ -56,11 +83,14 @@ $("form[name='articleForm']").on("submit", e => {
 				"/file/fileupload",
 				formData,
 				{
-					headers: {"Content-Type":"multipart/formData"}
+					headers: { "Content-Type": "multipart/formData" }
 				}
 			).then(response => {
 				console.log(response.data.message);
 			});
+		if (aid.val()) {
+			article.updateArticle();
+		} else {
 			//articleForm.off("submit").submit();
 		}
 	}

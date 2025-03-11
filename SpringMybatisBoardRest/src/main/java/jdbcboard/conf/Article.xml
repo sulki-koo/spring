@@ -61,7 +61,7 @@
 	
 	<update id="updateArticle" parameterType="Article">
 		UPDATE ARTICLE 
-		SET ASUBJECT=#{asubject}, ACONTENT=#{acontent}
+		SET ASUBJECT=#{asubject}, ACONTENT=#{acontent}, BID=#{bid}
 		WHERE AID=#{aid}	
 	</update>
 	
