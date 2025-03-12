@@ -2,7 +2,7 @@
 
 <%@ include file="/jsp/include/header.jsp" %>
 	<h3>${sessionScope.ss_mid}님 게시물등록</h3>
-	<form name="articleForm" action="/article/articles" method="post">
+	<form name="articleForm">
 		<input type="hidden" name="mid" value="${sessionScope.ss_mid}">
 		<div class="row">
 			  <div class="col">
@@ -21,7 +21,7 @@
 			    <input type="file" id="fileInput" multiple class="form-control" placeholder="파일" aria-label="파일">
 			  </div>
 			  <div class="col">
-				<input type="submit" value="등록" class="btn btn-outline-primary">
+				<input type="button" value="등록" onclick="article.insertArticle();" class="btn btn-outline-primary">
 				<input type="button" value="취소" onclick="location.href='/article/articles';" class="btn btn-outline-primary">
 			</div>
 		</div>

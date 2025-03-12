@@ -56,7 +56,7 @@
 	
 	<insert id="insertArticle" parameterType="Article">
 		INSERT INTO ARTICLE 
-		VALUES(ARTICLE_SEQ.NEXTVAL, #{asubject}, #{acontent}, 0, SYSDATE, 'N', 0, 0, #{bid}, #{mid})	
+		VALUES(#{aid}, #{asubject}, #{acontent}, 0, SYSDATE, 'N', 0, 0, #{bid}, #{mid})	
 	</insert>
 	
 	<update id="updateArticle" parameterType="Article">
@@ -76,5 +76,10 @@
 		SET AVCNT = AVCNT +1 
 		WHERE AID=#{aid}
 	</update>
+	
+	<select id="getSequenceNextVal" resultType="int">
+		SELECT ARTICLE_SEQ.NEXTVAL
+		FROM DUAL
+	</select>
 		
 </mapper>

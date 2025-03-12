@@ -19,4 +19,6 @@ public interface ArticleService {
 
 	public abstract int increaseAvcnt(int aid);
 	
+	public abstract int getSequenceNextVal();
+	
 }

@@ -12,7 +12,7 @@ import jdbcboard.util.BCryptUtil;
 
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO {
-	
+
 	@Autowired
 	private MemberMapper memberMapper;
 
@@ -20,31 +20,40 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> selectMember() {
 		return memberMapper.selectMember();
 	}
-	
+
 	@Override
 	public Member getMember(String mid) {
 		return memberMapper.getMember(mid);
 	}
-	
+
 	@Override
 	public int insertMember(Member member) {
 		member.setMpass(BCryptUtil.hashPassword(member.getMpass()));
 		return memberMapper.insertMember(member);
 	}
-	
+
 	@Override
 	public int updateMember(Member member) {
 		return memberMapper.updateMember(member);
 	}
-	
+
 	@Override
 	public int deleteMember(String mid) {
 		return memberMapper.deleteMember(mid);
 	}
-	
+
 	@Override
-	public  boolean checkLogin(Member member) {
-		return BCryptUtil.checkPassword(member.getMpass(), BCryptUtil.hashPassword(member.getMpass()));
+	public boolean checkLogin(Member member, String inputPass) {
+		String dbPass = memberMapper.getMember(member.getMid()).getMpass();
+		System.out.println("dbPass==>" + dbPass);
+		System.out.println("inputPass==>" + inputPass);
+		boolean result = false;
+		if (BCryptUtil.checkPassword(inputPass, dbPass)) {
+			result = true;
+		} else {
+			result = false;
+		}
+		return result;
 	}
 
 }

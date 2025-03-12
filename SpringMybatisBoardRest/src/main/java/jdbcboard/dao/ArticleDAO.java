@@ -18,5 +18,7 @@ public interface ArticleDAO {
 	public abstract int deleteArticle(int aid);
 
 	public abstract int increaseAvcnt(int aid);
+	
+	public abstract int getSequenceNextVal();
 
 }

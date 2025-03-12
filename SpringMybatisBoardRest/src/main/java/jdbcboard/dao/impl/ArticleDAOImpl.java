@@ -26,46 +26,32 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public Article getArticle(int aid) {
-//		SqlSession sqlSession = SqlMapUtil.getSqlSession();
-//		Article article = sqlSession.selectOne("article.getArticle", aid);
-//		sqlSession.close();
 		return articleMapper.getArticle(aid);
 	}
 
 	@Override
 	public int insertArticle(Article article) {
-//		SqlSession sqlSession = SqlMapUtil.getSqlSession();
-//		int result = sqlSession.insert("article.insertArticle", article);
-//		sqlSession.commit();
-//		sqlSession.close();
 		return articleMapper.insertArticle(article);
 	}
 
 	@Override
 	public int updateArticle(Article article) {
-//		SqlSession sqlSession = SqlMapUtil.getSqlSession();
-//		int result = sqlSession.update("article.updateArticle", article);
-//		sqlSession.commit();
-//		sqlSession.close();
 		return articleMapper.updateArticle(article);
 	}
 
 	@Override
 	public int deleteArticle(int aid) {
-//		SqlSession sqlSession = SqlMapUtil.getSqlSession();
-//		int result = sqlSession.delete("article.deleteArticle", aid);
-//		sqlSession.commit();
-//		sqlSession.close();
 		return articleMapper.deleteArticle(aid);
 	}
 
 	@Override
 	public int increaseAvcnt(int aid) {
-//		SqlSession sqlSession = SqlMapUtil.getSqlSession();
-//		int result = sqlSession.update("article.increaseAvcnt", aid);
-//		sqlSession.commit();
-//		sqlSession.close();
 		return articleMapper.increaseAvcnt(aid);
 	}
 
+	@Override
+	public int getSequenceNextVal() {
+		return articleMapper.getSequenceNextVal();
+	}
+	
 }

@@ -20,7 +20,7 @@
 	
 	<insert id="insertAttachFile" parameterType="AttachFile">
 		INSERT INTO ATTACHFILE 
-		VALUES(SEQ_ATTACHFILE.NEXTVAL, #{afcname}, #{afsname}, SYSDATE, 352)
+		VALUES(SEQ_ATTACHFILE.NEXTVAL, #{afcname}, #{afsname}, SYSDATE, #{aid})
 	</insert>
 	
 	<delete id="deleteAttachFile" parameterType="int">

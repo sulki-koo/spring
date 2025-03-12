@@ -51,9 +51,13 @@ public class ArticleController {
 	}
 	
 	@PostMapping("/articles")
-	public String insertArticle(@ModelAttribute Article article) {
+	@ResponseBody
+	public String insertArticle(@RequestBody Article article) {
+		int sequenceNextVal = articleService.getSequenceNextVal();
+		article.setAid(sequenceNextVal);
 		articleService.insertArticle(article);
-		return "redirect:/article/articles";
+		String aidJson = "{\"aid\":"+ sequenceNextVal +"}";
+		return aidJson;
 	}
 	
 	@GetMapping("/updateArticleForm/{aid}")
@@ -66,11 +70,10 @@ public class ArticleController {
 	
 	@PutMapping("/articles")
 	@ResponseBody
-	public Map<String, Integer> updateArticle(@RequestBody Article article){
-		int result = articleService.updateArticle(article);
-		Map<String, Integer> resultMap = new HashMap<String, Integer>();
-		resultMap.put("result", result);
-		return resultMap;
+	public String updateArticle(@RequestBody Article article){
+		articleService.updateArticle(article);
+		String aidJson = "{\"aid\":"+ article.getAid() +"}";
+		return aidJson;
 	}
 	
 	@DeleteMapping("/articles/{aid}")

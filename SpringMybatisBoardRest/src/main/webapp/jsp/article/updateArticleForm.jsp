@@ -23,7 +23,7 @@
 			    <input type="file" id="fileInput" multiple class="form-control" placeholder="파일" aria-label="파일">
 			  </div>
 			  <div class="col">
-				<input type="submit" value="수정" class="btn btn-outline-primary">
+				<input type=button value="수정" onclick="article.updateArticle();" class="btn btn-outline-primary">
 				<input type="button" value="목록"	onclick="location.href='/article/articles';" class="btn btn-outline-primary">
 			</div>
 		</div>

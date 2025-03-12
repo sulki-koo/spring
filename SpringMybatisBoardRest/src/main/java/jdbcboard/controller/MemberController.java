@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,7 +85,7 @@ public class MemberController {
 
 	@PostMapping("/login")
 	public String login(@ModelAttribute Member member, HttpServletRequest request) {
-		boolean result = memberService.checkLogin(member);
+		boolean result = memberService.checkLogin(member, request.getParameter("mpass"));
 		if (result) {
 			request.getSession().setAttribute("ss_mid", member.getMid());
 		}

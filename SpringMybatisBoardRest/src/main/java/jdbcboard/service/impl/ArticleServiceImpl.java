@@ -45,5 +45,10 @@ public class ArticleServiceImpl implements ArticleService {
 	public int increaseAvcnt(int aid) {
 		return articleDAO.increaseAvcnt(aid);
 	}
+	
+	@Override
+	public int getSequenceNextVal() {
+		return articleDAO.getSequenceNextVal();
+	}
 
 }

@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import jdbcboard.constant.BoardConstant;
 import jdbcboard.model.AttachFile;
 import jdbcboard.service.FileService;
 
 @Controller
 @RequestMapping("/file")
 public class FileController {
-
-	private static final String UPLOAD_DIR = "D:/embededk/uploadfiles/";
 
 	@Autowired
 	private FileService fileService;
@@ -45,10 +45,10 @@ public class FileController {
 			try {
 				for (MultipartFile file : files) {
 					String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-					File dest = new File(UPLOAD_DIR + fileName);
+					File dest = new File(BoardConstant.UPLOAD_DIR + fileName);
 					file.transferTo(dest);
 
-					AttachFile attachFile = new AttachFile(0, file.getOriginalFilename(), fileName, null, 0);
+					AttachFile attachFile = new AttachFile(0, file.getOriginalFilename(), fileName, null, Integer.parseInt(request.getParameter("aid")));
 					fileService.insertAttachFile(attachFile);
 				}
 				return "{\"message\":\"파일업로드 성공\"}";
@@ -75,18 +75,18 @@ public class FileController {
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + "\"");
 	}
 
-	@GetMapping("/selectAttachFile/{aid}")
+	@GetMapping("/attachfiles/{aid}")
 	@ResponseBody
 	public List<AttachFile> selectAttachFile(@PathVariable int aid) {
 		return fileService.selectAttachFile(aid);
 	}
 
-	@DeleteMapping("/deleteAttachFile/{afid}")
+	@DeleteMapping("/attachfiles/{afid}")
 	@ResponseBody
 	public Map<String, Integer> deleteAttachFile(@PathVariable int afid) {
 		
 		AttachFile attachFile = fileService.getAttachFile(afid);
-		File file = new File("D:/embededk/uploadfiles/" + attachFile.getAfsname());
+		File file = new File(BoardConstant.UPLOAD_DIR + attachFile.getAfsname());
 		if(file.exists()) {
 			file.delete();
 		}
