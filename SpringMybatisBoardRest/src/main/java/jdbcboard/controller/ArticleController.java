@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import jdbcboard.constant.BoardConstant;
 import jdbcboard.model.Article;
 import jdbcboard.model.ArticleCriteria;
 import jdbcboard.service.ArticleService;
@@ -29,6 +30,22 @@ public class ArticleController {
 	
 	@GetMapping("/articles")
 	public ModelAndView selectArticle(@ModelAttribute ArticleCriteria articleCriteria) {
+		
+		int pageNum = articleCriteria.getPageNum()==0 ? 1 : articleCriteria.getPageNum(); // 현재페이지 번호
+		int pageSize = articleCriteria.getPageSize()==0 ? BoardConstant.PAGE_SIZE : articleCriteria.getPageSize(); // 페이지당 게시물 수
+		articleCriteria.setPageNum(pageNum);
+		articleCriteria.setPageSize(pageSize);
+
+		int totalRowCount = articleService.getTotalRowCount(articleCriteria); // 전체 게시물 수
+		int totalPageCount = (int)(Math.ceil((double)totalRowCount / pageSize)); // 전체 페이지 수
+		articleCriteria.setTotalRowCount(totalRowCount);
+		articleCriteria.setTotalPageCount(totalPageCount);
+		
+		int startRow = (pageNum -1) * pageSize; // 페이지 시작 행번호
+		int endRow = pageNum * pageSize; // 페이지 끝 행번호
+		articleCriteria.setStartRow(startRow);
+		articleCriteria.setEndRow(endRow);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("articleList", articleService.selectArticle(articleCriteria));
 		mav.addObject("articleCriteria", articleCriteria);

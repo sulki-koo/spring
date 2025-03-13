@@ -20,5 +20,7 @@ public interface ArticleDAO {
 	public abstract int increaseAvcnt(int aid);
 	
 	public abstract int getSequenceNextVal();
+	
+	public abstract int getTotalRowCount(ArticleCriteria articleCriteria);
 
 }

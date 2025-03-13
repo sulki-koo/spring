@@ -21,4 +21,6 @@ public interface ArticleService {
 	
 	public abstract int getSequenceNextVal();
 	
+	public abstract int getTotalRowCount(ArticleCriteria articleCriteria);
+	
 }

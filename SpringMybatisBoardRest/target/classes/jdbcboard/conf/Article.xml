@@ -3,18 +3,18 @@
 
 <mapper namespace="jdbcboard.mapper.ArticleMapper">
 
-	<sql id="selectArticleLet">
+	<sql id="selectArticleOuterLet">
+		SELECT * FROM 
+		(SELECT ROWNUM AS RNUM, ALLATC.*
+		FROM 
+			(
+	</sql>
+
+	<sql id="selectArticleInnerLet">
 		SELECT 
-			A.AID AID, 
-			A.ASUBJECT ASUBJECT, 
-			A.ACONTENT ACONTENT, 
-			A.AVCNT AVCNT, 
-			A.AREGDATE AREGDATE, 
-			A.ADELYN ADELYN, 
-			A.AAFCNT AAFCNT, 
-			A.ARCNT ARCNT, 
-			A.BID BID, A.MID MID, 
-			B.BNAME BNAME 
+			A.AID AID, A.ASUBJECT ASUBJECT, A.ACONTENT ACONTENT, A.AVCNT AVCNT, 
+			A.AREGDATE AREGDATE, A.ADELYN ADELYN, A.AAFCNT AAFCNT, A.ARCNT ARCNT, 
+			A.BID BID, A.MID MID, B.BNAME BNAME 
 		FROM 
 			ARTICLE A, BOARD B
 		WHERE 
@@ -24,34 +24,66 @@
 	</sql>
 
 	<select id="selectArticle" parameterType="ArticleCriteria" resultType="Article">
-		<include refid="selectArticleLet" />
-		<if test="bid!=null and bid!=''">
-			AND A.BID=#{bid}
-		</if>
-		<if test="searchClass!=null and searchClass!='' and searchVal!=null and searchVal!=''">
-			<choose>
-	    			<when test="searchClass == 'asubject'">
-	    				AND A.ASUBJECT LIKE '%'||#{searchVal}||'%'
-	    			</when>
-	    			<when test="searchClass == 'acontent'">
-	    				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
-	    			</when>
-	    			<when test="searchClass == 'mid'">
-	    				AND A.MID LIKE '%'||#{searchVal}||'%'
-	    			</when>
-	    			<otherwise>
-	    				AND (A.ASUBJECT LIKE '%'||#{searchVal}||'%'
-							 OR A.ACONTENT LIKE '%'||#{searchVal}||'%'
-							 OR A.MID LIKE '%'||#{searchVal}||'%')
-	    			</otherwise>
-	    		</choose>
-		</if>
-		ORDER BY AID DESC
+		<include refid="selectArticleOuterLet" />
+		<include refid="selectArticleInnerLet" />
+			<if test="bid!=null and bid!=''">
+				AND A.BID=#{bid}
+			</if>
+			<if test="searchClass!=null and searchClass!='' and searchVal!=null and searchVal!=''">
+				<choose>
+		    			<when test="searchClass == 'asubject'">
+		    				AND A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+		    			</when>
+		    			<when test="searchClass == 'acontent'">
+		    				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
+		    			</when>
+		    			<when test="searchClass == 'mid'">
+		    				AND A.MID LIKE '%'||#{searchVal}||'%'
+		    			</when>
+		    			<otherwise>
+		    				AND (A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+								 OR A.ACONTENT LIKE '%'||#{searchVal}||'%'
+								 OR A.MID LIKE '%'||#{searchVal}||'%')
+		    			</otherwise>
+		    		</choose>
+			</if>
+			ORDER BY AID DESC
+		) ALLATC
+		WHERE ROWNUM &lt;= #{endRow}
+	)
+	WHERE RNUM > #{startRow}
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="Article">
-		<include refid="selectArticleLet" />
+		<include refid="selectArticleInnerLet" />
 			AND A.AID=#{aid}
+	</select>
+	
+	<select id="getTotalRowCount" parameterType="ArticleCriteria"  resultType="int">
+		SELECT COUNT(*) 
+		FROM ARTICLE A
+		WHERE ADELYN = 'N'
+		<if test="bid!=null and bid!=''">
+				AND A.BID=#{bid}
+			</if>
+			<if test="searchClass!=null and searchClass!='' and searchVal!=null and searchVal!=''">
+				<choose>
+		    			<when test="searchClass == 'asubject'">
+		    				AND A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+		    			</when>
+		    			<when test="searchClass == 'acontent'">
+		    				AND A.ACONTENT LIKE '%'||#{searchVal}||'%'
+		    			</when>
+		    			<when test="searchClass == 'mid'">
+		    				AND A.MID LIKE '%'||#{searchVal}||'%'
+		    			</when>
+		    			<otherwise>
+		    				AND (A.ASUBJECT LIKE '%'||#{searchVal}||'%'
+								 OR A.ACONTENT LIKE '%'||#{searchVal}||'%'
+								 OR A.MID LIKE '%'||#{searchVal}||'%')
+		    			</otherwise>
+		    		</choose>
+			</if>
 	</select>
 	
 	<insert id="insertArticle" parameterType="Article">

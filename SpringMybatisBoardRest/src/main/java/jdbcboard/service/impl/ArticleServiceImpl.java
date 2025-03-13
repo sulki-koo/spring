@@ -50,5 +50,10 @@ public class ArticleServiceImpl implements ArticleService {
 	public int getSequenceNextVal() {
 		return articleDAO.getSequenceNextVal();
 	}
+	
+	@Override
+	public int getTotalRowCount(ArticleCriteria articleCriteria) {
+		return articleDAO.getTotalRowCount(articleCriteria);
+	}
 
 }

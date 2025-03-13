@@ -54,4 +54,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return articleMapper.getSequenceNextVal();
 	}
 	
+	@Override
+	public int getTotalRowCount(ArticleCriteria articleCriteria) {
+		return articleMapper.getTotalRowCount(articleCriteria);
+	}
+	
 }

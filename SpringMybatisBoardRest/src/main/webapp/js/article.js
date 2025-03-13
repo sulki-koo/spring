@@ -1,4 +1,10 @@
 const article = {
+	selectArticle: function(pageNum, pageSize){
+		const articleSearchForm = $("form[name='articleSearchForm']");
+		articleSearchForm.find("input[name='pageNum']").val(pageNum);
+		articleSearchForm.find("input[name='pageSize']").val(pageSize);
+		articleSearchForm.submit();
+	},
 	insertArticle: function() {
 		this.sendRequest("post");
 	},
