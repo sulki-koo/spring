@@ -53,7 +53,7 @@ public class OpenAIFoodRecognition {
                 + "{\"type\": \"text\", \"text\": \"이 이미지에 어떤 음식 재료들이 있는지 분석해줘.\"},"
                 + imageJson
                 + "]}],"
-                + "\"max_tokens\": 200"
+                + "\"max_tokens\": 500"
                 + "}";
 
         RequestBody body = RequestBody.create(jsonRequest, MediaType.get("application/json"));
@@ -83,9 +83,8 @@ public class OpenAIFoodRecognition {
                 + "\"messages\": [{\"role\": \"user\", \"content\": \"다음 재료를 사용한 요리 레시피를 추천해줘: " + ingredients + "\"}],"
                 + "\"max_tokens\": 300"
                 + "}";
-
+        
         RequestBody body = RequestBody.create(jsonRequest, MediaType.get("application/json"));
-
         Request request = new Request.Builder()
                 .url(API_URL)
                 .header("Authorization", "Bearer " + API_KEY)
