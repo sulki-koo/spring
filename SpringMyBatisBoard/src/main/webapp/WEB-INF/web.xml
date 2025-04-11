@@ -5,30 +5,25 @@
 	id="WebApp_ID" version="5.0">
 	<display-name>SpringMyBatisBoard</display-name>
 
-	<context-param>
-		<param-name>commandProp</param-name>
-		<param-value>/WEB-INF/props/command.properties</param-value>
+	 <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/conf/applicationContext.xml</param-value>
 	</context-param>
 
 	<listener>
-		<listener-class>jdbcboard.listener.ApplicationListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<filter>
-		<filter-name>ViewResolverFilter</filter-name>
-		<filter-class>jdbcboard.filter.ViewResolverFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ViewResolverFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-
 	<servlet>
-		<servlet-name>JDBCBoardController</servlet-name>
-		<servlet-class>jdbcboard.controller.JDBCBoardController</servlet-class>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/conf/servletContext.xml</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>JDBCBoardController</servlet-name>
+		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 

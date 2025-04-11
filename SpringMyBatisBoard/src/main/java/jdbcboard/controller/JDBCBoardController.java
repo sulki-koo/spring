@@ -1,23 +1,20 @@
 package jdbcboard.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Serializable;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jdbcboard.model.Article;
 import jdbcboard.model.ArticleCriteria;
 import jdbcboard.model.Board;
@@ -29,22 +26,8 @@ import jdbcboard.service.MemberService;
 import jdbcboard.service.ReplyService;
 
 @Controller
-public class JDBCBoardController extends HttpServlet implements Serializable {
-	
-	private static final long serialVersionUID = 239487932473924L;
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		process(request, response);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		process(request, response);
-	}
-	
+public class JDBCBoardController {
+
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -55,34 +38,35 @@ public class JDBCBoardController extends HttpServlet implements Serializable {
 	private ArticleService as;
 	@Autowired
 	private ReplyService replyService;
-	
-	private void process(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		String requestURI = (String)request.getAttribute("requestURI");
-		Object resultObj = null;
-		int result = 0;
-		String viewPage = (String)request.getAttribute("viewPage");
-		
-		Member member = null;
-		Board board = null;
-		Article article = null;
-		Reply reply = null;
-		
-		Gson gson = new GsonBuilder().create();
-		String jsonStr = null;
-		PrintWriter pw = null;
-		
-		switch (requestURI) {
-		
-			case "index.do":
-				response.sendRedirect("/selectArticle.do");
-			break;
-		
-			case "selectMember.do":
-				resultObj = memberService.selectMember();
-				request.setAttribute("memberList", resultObj);
-				forward(request, response, viewPage);
+	@Autowired
+	Member member = null;
+	@Autowired
+	Board board = null;
+	@Autowired
+	Article article = null;
+	@Autowired
+	Reply reply = null;
+	@Autowired
+	Gson gson = new GsonBuilder().create();
+	@Autowired
+	String jsonStr = null;
+	@Autowired
+	PrintWriter pw = null;
+
+	@RequestMapping("selectMember.do")
+	public ModelAndView process(HttpServletRequest request, HttpServletResponse response)throws Exception {
+		resultObj = memberService.selectMember();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberList", resultObj);
+		mav.setViewName("listMember");
+		return mav;
+	}
+
+	case"selectMember.do":
+
+	request.setAttribute("memberList",resultObj);
+
+	forward(request, response, viewPage);
 				break;
 				
 			case "getMember.do":
@@ -311,16 +295,8 @@ public class JDBCBoardController extends HttpServlet implements Serializable {
 					Integer.parseInt(request.getParameter("rid"))
 				);
 				break;
-				
 		}
-		
-	} // process
-	
-	private void forward(HttpServletRequest request, HttpServletResponse response, 
-			String viewPage) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher(viewPage);
-		rd.forward(request, response);		
-	}
+
+} // process
 
 } // class
-
